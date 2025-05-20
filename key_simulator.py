@@ -2,6 +2,7 @@ import time
 
 from pynput.keyboard import Controller
 
+
 class KeySimulator:
     def __init__(self):
         self.keyboard = Controller()
@@ -9,7 +10,7 @@ class KeySimulator:
         self.last_time = time.time()
 
     def press(self, key):
-        if time.time() - self.last_time > 0.5 or self.last_pressed != key:
+        if time.time() - self.last_time > 0.3 or self.last_pressed != key:
             self.keyboard.press(key.lower())
             self.keyboard.release(key.lower())
             self.last_time = time.time()
