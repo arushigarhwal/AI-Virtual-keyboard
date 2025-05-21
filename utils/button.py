@@ -8,27 +8,23 @@ class Button:
         self.w = w
         self.h = h
         self.text = text
-        self.img = None  # Will be set in main
+        self.img = None
 
     def draw(self, img, highlight=False):
         self.img = img
         draw_w = self.w
-        color = (200, 0, 200)  # Default purple
+        color = (200, 0, 200)
 
-        # Special colors and widths
         if self.text == "Space":
-            draw_w = self.w * 4
+            draw_w = self.w
         if self.text == "Exit":
-            color = (0, 0, 255)  # Red for exit
+            color = (0, 0, 255)
 
-        # Highlight color override
         if highlight:
-            color = (0, 255, 0)  # Green if pressed
+            color = (0, 255, 0)
 
-        # Draw button rectangle
         cv2.rectangle(img, (self.x, self.y), (self.x + draw_w, self.y + self.h), color, -1)
 
-        # Put text centered vertically and with a little padding horizontally
         font_scale = 2
         thickness = 2
         (text_width, text_height), _ = cv2.getTextSize(self.text, cv2.FONT_HERSHEY_PLAIN, font_scale, thickness)

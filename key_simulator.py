@@ -10,7 +10,7 @@ class KeySimulator:
         self.last_time = time.time()
 
     def press(self, key):
-        if time.time() - self.last_time > 0.3 or self.last_pressed != key:
+        if time.time() - self.last_time > 200.0 or self.last_pressed != key:
             self.keyboard.press(key.lower())
             self.keyboard.release(key.lower())
             self.last_time = time.time()

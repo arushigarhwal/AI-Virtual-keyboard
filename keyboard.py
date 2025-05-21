@@ -24,7 +24,6 @@ def draw_keyboard(img, KEYS, highlight_key=None):
             buttons.append(btn)
             x += w + 10
 
-        # Add Exit button top-right corner
     img_w = img.shape[1]
     exit_x = img_w - key_width - 30
     exit_y = 30
@@ -43,10 +42,15 @@ def check_key_press(lmList, KEYS):
 
     for btn in buttons:
         if btn.x < x8 < btn.x + btn.w and btn.y < y8 < btn.y + btn.h:
-            # Check finger curl/press condition
             if abs(y8 - y12) < 30:
-                # Highlight pressed button
                 cv2.rectangle(btn.img, (btn.x, btn.y), (btn.x + btn.w, btn.y + btn.h), (0, 255, 0), -1)
-                cv2.putText(btn.img, btn.text, (btn.x + 10, btn.y + 40), cv2.FONT_HERSHEY_PLAIN, 3, (255, 255, 255), 4)
+                if btn.text == '<-':
+                    cv2.putText(btn.img, btn.text, (btn.x + 10, btn.y + 40), cv2.FONT_HERSHEY_PLAIN, 2, (255, 255, 255),
+                                4)
+                elif btn.text == 'Space':
+                    cv2.putText(btn.img, btn.text, (btn.x + 70, btn.y + 40), cv2.FONT_HERSHEY_PLAIN, 2, (255, 255, 255),
+                                4)
+                else:
+                    cv2.putText(btn.img, btn.text, (btn.x + 20, btn.y + 40), cv2.FONT_HERSHEY_PLAIN, 2, (255, 255, 255), 4)
                 return btn.text
     return None

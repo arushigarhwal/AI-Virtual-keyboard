@@ -1,3 +1,5 @@
+import time
+
 import cv2
 from hand_tracking import HandDetector
 from keyboard import draw_keyboard, check_key_press
@@ -34,9 +36,10 @@ while True:
         key = check_key_press(lmList, KEYS)
 
         if key is not None and isinstance(key, str):
-            if key != highlighted_key:
+            current_time = time.time() * 1000
+            if key != highlighted_key or (current_time - last_pressed_time) > 500:
                 highlighted_key = key
-                # Process key
+                last_pressed_time = current_time
                 if key == "<-":
                     typed_text = typed_text[:-1]
                 elif key == "Space":
@@ -47,7 +50,7 @@ while True:
                     typed_text += key
 
     else:
-        highlighted_key = None  # No hand detected, no highlight
+        highlighted_key = None
 
     cv2.imshow("AI Virtual Keyboard", frame)
 
